@@ -1,0 +1,39 @@
+{
+  "name": "m-agendash",
+  "version": "1.0.0",
+  "description": "[![Build Status](https://travis-ci.org/agenda/agendash.svg)](https://travis-ci.org/agenda/agendash) <a href=\"https://slackin-ekwifvcwbr.now.sh/\"><img src=\"https://slackin-ekwifvcwbr.now.sh/badge.svg\" alt=\"Slack Status\"></a> [![Known Vulnerabilities](https://snyk.io/test/github/agenda/agendash/badge.svg?targetFile=package.json)](https://snyk.io/test/github/agenda/agendash?targetFile=package.json)",
+  "main": "app.js",
+  "bin": {
+    "m-agendash": "agendash-standalone.js"
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agenda/agendash.git"
+  },
+  "dependencies": {
+    "agenda": "^1.0.3",
+    "async": "^2.6.0",
+    "body-parser": "^1.15.0",
+    "commander": "^2.9.0",
+    "express": "^4.0.0",
+    "semver": "^5.3.0"
+  },
+  "devDependencies": {
+    "ava": "^0.25.0",
+    "npm-run-all": "^4.1.2",
+    "supertest": "^3.0.0",
+    "xo": "^0.18.2"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/agenda/agendash/issues"
+  },
+  "homepage": "https://github.com/agenda/agendash#readme"
+}

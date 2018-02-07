@@ -1,27 +1,30 @@
 {
   "name": "m-agendash",
-  "version": "1.0.0",
-  "description": "[![Build Status](https://travis-ci.org/agenda/agendash.svg)](https://travis-ci.org/agenda/agendash) <a href=\"https://slackin-ekwifvcwbr.now.sh/\"><img src=\"https://slackin-ekwifvcwbr.now.sh/badge.svg\" alt=\"Slack Status\"></a> [![Known Vulnerabilities](https://snyk.io/test/github/agenda/agendash/badge.svg?targetFile=package.json)](https://snyk.io/test/github/agenda/agendash?targetFile=package.json)",
+  "version": "0.1.0",
+  "description": "Agenda Dashboard",
   "main": "app.js",
-  "bin": {
-    "m-agendash": "agendash-standalone.js"
-  },
-  "directories": {
-    "lib": "lib"
+  "bin": "bin/agendash-standalone.js",
+  "engines": {
+    "node": ">=6.0.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "run-p lint ava",
+    "lint": "xo",
+    "ava": "ava"
   },
+  "keywords": [
+    "agenda"
+  ],
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/agenda/agendash.git"
+    "type": "git"
   },
+  "license": "MIT",
   "dependencies": {
-    "agenda": "^1.0.3",
     "async": "^2.6.0",
     "body-parser": "^1.15.0",
     "commander": "^2.9.0",
     "express": "^4.0.0",
+    "m-agenda": "git+https://github.com/Bruceliao/m-agenda.git",
     "semver": "^5.3.0"
   },
   "devDependencies": {
@@ -30,10 +33,27 @@
     "supertest": "^3.0.0",
     "xo": "^0.18.2"
   },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/agenda/agendash/issues"
-  },
-  "homepage": "https://github.com/agenda/agendash#readme"
+  "xo": {
+    "space": 2,
+    "rules": {
+      "space-before-function-paren": [
+        "error",
+        "never"
+      ],
+      "max-params": [
+        "error",
+        5
+      ],
+      "max-nested-callbacks": [
+        "error",
+        5
+      ]
+    },
+    "envs": [
+      "node"
+    ],
+    "ignores": [
+      "public/**/*"
+    ]
+  }
 }

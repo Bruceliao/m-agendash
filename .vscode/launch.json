@@ -8,7 +8,7 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
-            "program": "${workspaceFolder}/bin/agendash-standalone.js"
+            "program": "${workspaceFolder}/agenda-start.js"
         }
     ]
 }

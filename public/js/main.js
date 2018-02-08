@@ -347,7 +347,6 @@ $(function () {
       /*
       TODO: Need to validate user input.
       */
-      debugger
       var categoryName = this.$el.find('.job-name').val()
       var taskName = this.$el.find('.job-task_name').val()
       var jobSchedule = this.$el.find('.job-schedule').val()
@@ -359,9 +358,15 @@ $(function () {
         alert("data (json) 填写值不对")
         return
       }
+      if (!categoryName) {
+        return alert("类别名是空的")
+      }
+      if (!taskName) {
+        return alert("任务名是空的")
+      }
       $.ajax({
         type: 'POST',
-        url: 'api/jobs/create',
+        url: 'api/jobs/create/url-task',
         data: JSON.stringify({
           categoryName: categoryName,
           jobSchedule: jobSchedule,

@@ -35,7 +35,7 @@
               <small class="active-state"></small>
             </h2>
             <ul id="select-jobs" class="nav nav-pills">
-              <li role="presentation"><a role="button" data-action="schedule-job">Schedule job</a></li>
+              <li role="presentation"><a role="button" data-action="schedule-job">创建任务</a></li>
               <li role="presentation"><a role="button" data-action="select-all">Select all</a></li>
               <li role="presentation"><a role="button" data-action="select-none">Select none</a></li>
             </ul>
@@ -48,10 +48,10 @@
                   <th>Status</th>
                   <th>任务名</th>
                   <th>类别名</th>
-                  <th>Last run started</th>
-                  <th>Next run starts</th>
-                  <th>Last finished</th>
-                  <th>Locked</th>
+                  <th>上一次运行开始于</th>
+                  <th>上一次运行结束时间</th>
+                  <th>下一次运行开始时间</th>
+                  <th>锁定</th>
                 </tr>
               </thead>
               <tbody id="job-list"></tbody>
@@ -66,7 +66,7 @@
           <div id="details-list"></div>
         </div>
         <div id="create-job-pane">
-          <h2 class="sub-header">Create Job</h2>
+          <h2 class="sub-header">创建任务</h2>
           <hr />
           <div class="form-group">
             <label>类别名</label>
@@ -154,9 +154,9 @@
       <td>
         <%- job.name %>
       </td>
-      <td><% if (job.lastRunAt) { %><time datetime="<%- moment(job.lastRunAt).toISOString() %>"><%- moment(job.lastRunAt).fromNow() %></time><% } %></td>
-      <td><% if (job.nextRunAt) { %><time datetime="<%- moment(job.nextRunAt).toISOString() %>"><%- moment(job.nextRunAt).fromNow() %></time><% } %></td>
-      <td><% if (job.lastFinishedAt) { %><time datetime="<%- moment(job.lastFinishedAt).toISOString() %>"><%- moment(job.lastFinishedAt).fromNow() %></time><% } %></td>
+      <td><% if (job.lastRunAt) { %><time datetime="<%- moment(job.lastRunAt).toISOString() %>"><%- moment(job.lastRunAt).format("YYYY-MM-DD hh:mm:ss") %></time><% } %></td>
+      <td><% if (job.lastFinishedAt) { %><time datetime="<%- moment(job.lastFinishedAt).toISOString() %>"><%- moment(job.lastFinishedAt).format("YYYY-MM-DD hh:mm:ss") %></time><% } %></td>
+      <td><% if (job.nextRunAt) { %><time datetime="<%- moment(job.nextRunAt).toISOString() %>"><%- moment(job.nextRunAt).format("YYYY-MM-DD hh:mm:ss") %></time><% } %></td>
       <td><% if (job.lockedAt) { %><time datetime="<%- moment(job.lockedAt).toISOString() %>"><%- moment(job.lockedAt).fromNow() %></time><% } %></td>
     </script>
 

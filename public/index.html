@@ -46,7 +46,8 @@
               <thead>
                 <tr>
                   <th>Status</th>
-                  <th>Name</th>
+                  <th>任务名</th>
+                  <th>类别名</th>
                   <th>Last run started</th>
                   <th>Next run starts</th>
                   <th>Last finished</th>
@@ -68,19 +69,40 @@
           <h2 class="sub-header">Create Job</h2>
           <hr />
           <div class="form-group">
-            <label>Job name</label>
-            <input type="text" class="job-name form-control">
+            <label>类别名</label>
+            <select class="job-name form-control">
+                <option value ="URL">URL</option>
+            </select>
           </div>
           <div class="form-group">
-            <label>Schedule</label>
-            <input type="text" class="job-schedule form-control">
+            <label>任务名</label>
+            <input type="text" class="job-task_name form-control">
+
           </div>
           <div class="form-group">
-            <label>Repeat every</label>
-            <input type="text" class="job-repeat-every form-control">
+            <label>定时执行于</label>
+            <input type="text" class="job-schedule layui-input form-control" id="set-schedule-time">
           </div>
           <div class="form-group">
-            <label>Job data (json)</label>
+            <label>重复定时执行于</label>
+            <input style="font-size: 18px" data-action="calCron" type="text" class="job-repeat-every form-control">
+            <div id="cal-cron-pane">
+            </div>
+            <pre>
+                <code>
+  * * * * *
+  ┬ ┬ ┬ ┬ ┬
+  │ │ │ │ |
+  │ │ │ │ └ 星期(0 - 7)(0或7表示星期天)
+  │ │ │ └───── 月(1 - 12)
+  │ │ └────────── 日(1 - 31)
+  │ └─────────────── 时(0 - 23)
+  └──────────────────── 分(0 - 59)
+                </code>
+              </pre>
+          </div>
+          <div class="form-group">
+            <label>data (json)</label>
             <textarea class="job-data form-control">{}</textarea>
           </div>
           <div class="form-group">
@@ -125,6 +147,9 @@
         <% if (running) { %><span class="label label-warning">Running</span><% } %>
         <% if (completed) { %><span class="label label-success">Completed</span><% } %>
         <% if (failed) { %><span class="label label-danger">Failed</span><% } %>
+      </td>
+      <td>
+        <%- job.task_name || job.taskName %>
       </td>
       <td>
         <%- job.name %>
@@ -173,6 +198,11 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/backbone-min.js"></script>
     <script src="js/moment.min.js"></script>
+    <script src="js/moment-with-locales.min.js"></script>
+    <script src="js/laydate/laydate.js"></script>
+    <script>
+      moment.locale('zh-CN');
+    </script>
     <script src="js/main.js"></script>
 
   </body>

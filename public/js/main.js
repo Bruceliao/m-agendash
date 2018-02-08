@@ -285,6 +285,20 @@ $(function () {
     }
   })
 
+  function debounce(func, wait, immediate) {
+    var timeout;
+    return function() {
+      var context = this, args = arguments;
+      var later = function() {
+        timeout = null;
+        if (!immediate) func.apply(context, args);
+      };
+      var callNow = immediate && !timeout;
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+      if (callNow) func.apply(context, args);
+    };
+  };
   var CreateJobPaneView = Backbone.View.extend({
     el: '#create-job-pane',
     initialize: function (options) {
@@ -293,12 +307,38 @@ $(function () {
     },
     events: {
       'click [data-action=cancel]': 'hideView',
-      'click [data-action=save]': 'saveJob'
+      'click [data-action=save]': 'saveJob',
+      'keyup [data-action=calCron]': 'calCron'
     },
     render: function () {
+      laydate.render({
+        elem: '#set-schedule-time',
+        type: 'datetime',
+        min: moment(new Date()).format("YYYY-MM-DD")
+      })
       this.$el.hide()
       return this
     },
+    calCron: debounce(function() {
+      var cronVal = this.$el.find(".job-repeat-every").val()
+      $.ajax(
+        {
+          url: "api/cron-cal",
+          data: {cron: cronVal},
+          success: function(data, err){
+            var htmlcontent = "<div>最近5次执行时间</div>"
+            data.forEach(function(item){
+              htmlcontent += "<div>" +item+ "</div>"
+            })
+              $('#cal-cron-pane').html(htmlcontent)
+          },
+          error: function(){
+            $('#cal-cron-pane').html("<div>cron表达式错误</div>")
+          }
+        }
+      )
+
+    }, 700),
     hideView: function () {
       this.$el.hide()
       return this
@@ -307,14 +347,27 @@ $(function () {
       /*
       TODO: Need to validate user input.
       */
-      var jobName = this.$el.find('.job-name').val()
+      debugger
+      var categoryName = this.$el.find('.job-name').val()
+      var taskName = this.$el.find('.job-task_name').val()
       var jobSchedule = this.$el.find('.job-schedule').val()
       var jobRepeatEvery = this.$el.find('.job-repeat-every').val()
-      var jobData = JSON.parse(this.$el.find('.job-data').val())
+      var jobData;
+      try {
+        jobData = JSON.parse(this.$el.find('.job-data').val())
+      }catch(e) {
+        alert("data (json) 填写值不对")
+        return
+      }
       $.ajax({
         type: 'POST',
         url: 'api/jobs/create',
-        data: JSON.stringify({jobName: jobName, jobSchedule: jobSchedule, jobRepeatEvery: jobRepeatEvery, jobData: jobData}),
+        data: JSON.stringify({
+          categoryName: categoryName,
+          jobSchedule: jobSchedule,
+          taskName: taskName,
+          jobRepeatEvery: jobRepeatEvery,
+          jobData: jobData}),
         contentType: 'application/json',
         dataType: 'json'
       })

@@ -18,10 +18,13 @@ agenda.define('URL', function(job, done) {
       console.error(err)
       job.fail(new Error(err))
       job.save()
+      job.saveLogJob(err)
     } else if(!(res.statusCode >= 200 && res.statusCode <= 240)) {
-      console.error("statusCode:", res.statusCode, body)
-      job.fail(new Error(`statusCode: '${res.statusCode}', ${body}`))
+      const reason = `statusCode: '${res.statusCode}', ${body}`
+      console.error(reason)
+      job.fail(new Error(reason))
       job.save()
+      job.saveLogJob(reason)
     } else {
       done()
     }

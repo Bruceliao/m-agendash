@@ -8,7 +8,7 @@ module.exports = (agenda, options) => {
   }
 
   const agendash = require('./lib/agendash')(agenda, options);
-
+  agendash.mAgenda = agenda
   try {
     const middlewarePath = path.join(__dirname, 'lib/middlewares', options.middleware);
     return require(middlewarePath)(agendash);

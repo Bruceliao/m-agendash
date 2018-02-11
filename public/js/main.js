@@ -83,6 +83,11 @@ $(function () {
     }
   })
 
+  var modalPane = $("#modal-content")
+  $("#close-modal-pane").on('click', function(){
+    $("#modal-pane").hide()
+  })
+
   var JobItemView = Backbone.View.extend({
     model: JobItemModel,
     tagName: 'tr',
@@ -92,7 +97,30 @@ $(function () {
       this.listenTo(this.model, 'change', this.render)
     },
     events: {
-      'click': 'handleClick'
+      'click': 'handleClick',
+      'click button.check-failed-log': 'checkFailedLogs'
+    },
+    checkFailedLogs: function(e) {
+      e.stopPropagation()
+      var jobId = $(e.target).data('jobid')
+      $.get("api/job/" + jobId + "/failed-log", function(logs){
+        if (logs) {
+          var failLogsDoms = "<table><thead><tr><td>时间</td><td>原因</td></tr></thead><tbody>";
+
+          logs.forEach(function (l) {
+            var reason = l.reason
+            if (typeof reason == 'object') {
+              reason = JSON.stringify(reason)
+            }
+            failLogsDoms += "<tr><td class='failed-log-ts'>" + moment(l.ts).format("YYYY-MM-DD hh:mm:ss") + "</td><td class='failed-log-reason'>" + reason + "</td></tr>";
+          });
+          failLogsDoms += "</tbody></table>";
+          modalPane.html(failLogsDoms)
+          $("#modal-pane").show();
+        }
+      })
+      console.log(jobId)
+
     },
     handleClick: function (e) {
       this.model.set('selected', !this.model.get('selected'))

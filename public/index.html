@@ -52,6 +52,7 @@
                   <th>上一次运行结束时间</th>
                   <th>下一次运行开始时间</th>
                   <th>锁定</th>
+                  <th>操作</th>
                 </tr>
               </thead>
               <tbody id="job-list"></tbody>
@@ -113,6 +114,11 @@
       </div>
     </div>
 
+    <div id="modal-pane">
+      <button id="close-modal-pane" class="btn btn-dragger" style="float:right">x</button>
+      <div id="modal-content"></div>
+    </div>
+
     <script type="text/template" id="overview-item-template">
       <ul class="nav nav-sidebar">
         <li data-state="">
@@ -158,6 +164,7 @@
       <td><% if (job.lastFinishedAt) { %><time datetime="<%- moment(job.lastFinishedAt).toISOString() %>"><%- moment(job.lastFinishedAt).format("YYYY-MM-DD hh:mm:ss") %></time><% } %></td>
       <td><% if (job.nextRunAt) { %><time datetime="<%- moment(job.nextRunAt).toISOString() %>"><%- moment(job.nextRunAt).format("YYYY-MM-DD hh:mm:ss") %></time><% } %></td>
       <td><% if (job.lockedAt) { %><time datetime="<%- moment(job.lockedAt).toISOString() %>"><%- moment(job.lockedAt).fromNow() %></time><% } %></td>
+      <td><button type="button" class="check-failed-log btn btn-danger btn-sm" data-jobId="<%- job._id %>">查看错误日志</button></td>
     </script>
 
     <script type="text/template" id="job-item-details-template">
@@ -194,6 +201,7 @@
     </script>
 
     <script src="js/jquery-2.2.0.min.js"></script>
+    <!-- <script src="js/jquery.modal.min.js"></script> -->
     <script src="js/lodash.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/backbone-min.js"></script>

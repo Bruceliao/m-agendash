@@ -25,9 +25,8 @@ agenda.define('URL', function(job, done) {
       job.fail(new Error(reason))
       job.save()
       job.saveLogJob(reason)
-    } else {
-      done()
     }
+    done()
   })
   // const _param = {
   //   method: data.method.toLowerCase(),
@@ -52,7 +51,7 @@ agenda.on('ready', function() {
 });
 
 agenda.on('complete:URL', function(job){
-  console.log('URL JOB %s finished', job.attrs.name);
+  console.log('URL JOB FINISHED =>', JSON.stringify(job.attrs))
 })
 
 function graceful() {

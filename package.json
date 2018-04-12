@@ -28,6 +28,7 @@
     "express": "^4.0.0",
     "layui-laydate": "^5.0.85",
     "m-agenda": "git+https://github.com/Bruceliao/m-agenda.git",
+    "moment": "^2.22.0",
     "request": "^2.83.0",
     "semver": "^5.3.0"
   },

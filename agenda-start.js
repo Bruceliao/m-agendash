@@ -1,6 +1,7 @@
 var mongoConnectionString = 'mongodb://127.0.0.1/agenda';
 const Agenda = require('m-agenda')
 const request = require('request')
+const moment = require('moment')
 var agenda = new Agenda({
   db: {address: mongoConnectionString},
   defaultLockLifetime: 10
@@ -28,22 +29,6 @@ agenda.define('URL', function(job, done) {
     }
     done()
   })
-  // const _param = {
-  //   method: data.method.toLowerCase(),
-  //   url: data.url
-  // }
-  // if (data.data) {
-  //   _param.data = data
-  // }
-  // axios(_param)
-  //   .then(() => {
-  //     console.log("done1111")
-  //     done()
-  //   })
-  //   .catch((e) => {
-  //     job.fail(new Error(e.message))
-  //     // job.save()
-  //   })
 });
 
 agenda.on('ready', function() {
@@ -51,7 +36,8 @@ agenda.on('ready', function() {
 });
 
 agenda.on('complete:URL', function(job){
-  console.log('URL JOB FINISHED =>', JSON.stringify(job.attrs))
+  const now = moment().format('YYYY-MM-DD HH:mm:ss')
+  console.log('time: ' + now + ' ,URL JOB FINISHED =>', JSON.stringify(job.attrs))
 })
 
 function graceful() {

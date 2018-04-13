@@ -108,6 +108,7 @@
 #modal-content {
   background: #fff;
   height: 100%;
+  overflow-y: auto;
 }
 td.failed-log-reason {
   padding-left: 10px;
